@@ -1,0 +1,16 @@
+.product {
+    text-align: center;
+}
+
+.fa-star {
+    color: gold;
+}
+
+small {
+    font-size: x-small;
+}
+
+.purchase span {
+    color: red;
+    font-weight: bold;
+}
