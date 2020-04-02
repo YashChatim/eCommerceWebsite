@@ -1,9 +1,9 @@
 <?php
-require_once('./php/createDB.php');
+require_once('./php/database.php');
 require_once('./php/product.php');
 
-// Create instance of createDB class
-$database = new CreateDB($dbName = "mrinDB", $tableName = "products");
+// Create instance of Database class
+$database = new Database($dbName = "mrinDB", $tableName = "products");
 ?>
 
 <!DOCTYPE html>
@@ -27,9 +27,10 @@ $database = new CreateDB($dbName = "mrinDB", $tableName = "products");
     <div class="container">
         <div class="product row">
             <?php
-            displayProduct('pizza.jpg', '50', '10');
-            displayProduct('travel.jpg', '75', '15');
-            displayProduct('gentle.jpg', '100', '20');
+            $product = $database->getDataFromDatabase();
+            while ($row = $product->fetch_assoc()) {
+                displayProduct($row['image_url'], $row['title'], $row['information'], $row['original_price'], $row['discount_price']);
+            }
             ?>
         </div>
     </div>

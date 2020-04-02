@@ -1,5 +1,5 @@
 <?php
-function displayProduct($imageURL, $originalPrice, $discountPrice)
+function displayProduct($imageURL, $title, $information, $originalPrice, $discountPrice)
 {
     $product = "
     <div class=\"col\">
@@ -7,7 +7,7 @@ function displayProduct($imageURL, $originalPrice, $discountPrice)
         <div class=\"card\" style=\"width: 18rem;\">
             <img class=\"card-img-top\" src=\"./img/$imageURL\" alt=\"Card image cap\">
             <div class=\"card-body\">
-                <h5 class=\"card-title\">Card title</h5>
+                <h5 class=\"card-title\">$title</h5>
                 <h6>
                     <i class=\"fas fa-star\"></i>
                     <i class=\"fas fa-star\"></i>
@@ -15,7 +15,7 @@ function displayProduct($imageURL, $originalPrice, $discountPrice)
                     <i class=\"fas fa-star\"></i>
                     <i class=\"fas fa-star\"></i>
                 </h6>
-                <p class=\"card-text\">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <p class=\"card-text\">$information</p>
                 <div class=\"purchase\">
                     <small><s>£$originalPrice</s></small>
                     <span>£$discountPrice</span>
