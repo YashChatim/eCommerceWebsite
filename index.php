@@ -1,9 +1,45 @@
 <?php
+
+// Start session
+session_start();
+
 require_once('./php/database.php');
 require_once('./php/product.php');
 
 // Create instance of Database class
 $database = new Database($dbName = "mrinDB", $tableName = "products");
+
+// When 'Add to cart' button is clicked
+if (isset($_POST['add'])) {
+    /// print_r($_POST['product_id']);
+    if (isset($_SESSION['cart'])) {
+        // Returns the values from product_id column
+        $cart = array_column($_SESSION['cart'], "product_id");
+
+        // If selected product already exists in the array
+        if (in_array($_POST['product_id'], $cart)) {
+            echo "<script>alert('Product already added')</script>";
+            echo "<script>window.location = 'index.php'</script>"; // window.location - current document URL being displayed in that window
+        } else {
+            $productCount = count($_SESSION['cart']); // count() - counts all elements in array
+            $products = array(
+                'product_id' => $_POST['product_id']
+            );
+
+            $_SESSION['cart'][$productCount] = $products;
+            print_r($_SESSION['cart']);
+        }
+    } else {
+        $products = array(
+            'product_id' => $_POST['product_id']
+        );
+
+        // New session variable
+        $_SESSION['cart'][0] = $products;
+        print_r($_SESSION['cart']);
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +65,7 @@ $database = new Database($dbName = "mrinDB", $tableName = "products");
             <?php
             $product = $database->getDataFromDatabase();
             while ($row = $product->fetch_assoc()) {
-                displayProduct($row['image_url'], $row['title'], $row['information'], $row['original_price'], $row['discount_price']);
+                displayProduct($row['image_url'], $row['title'], $row['information'], $row['original_price'], $row['discount_price'], $row['id']);
             }
             ?>
         </div>

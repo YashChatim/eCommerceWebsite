@@ -1,5 +1,5 @@
 <?php
-function displayProduct($imageURL, $title, $information, $originalPrice, $discountPrice)
+function displayProduct($imageURL, $title, $information, $originalPrice, $discountPrice, $productId)
 {
     $product = "
     <div class=\"col\">
@@ -22,6 +22,7 @@ function displayProduct($imageURL, $title, $information, $originalPrice, $discou
                     <button class=\"btn btn-success\" type=\"submit\" name=\"add\">
                         <i class=\"fas fa-shopping-cart\"></i>Add to cart
                     </button>
+                    <input type=\"hidden\" name=\"product_id\" value=\"$productId\">
                 </div>
             </div>
         </div>
