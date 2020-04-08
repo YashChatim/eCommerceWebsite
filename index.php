@@ -27,7 +27,7 @@ if (isset($_POST['add'])) {
             );
 
             $_SESSION['cart'][$productCount] = $products;
-            print_r($_SESSION['cart']);
+            // print_r($_SESSION['cart']);
         }
     } else {
         $products = array(
@@ -36,7 +36,7 @@ if (isset($_POST['add'])) {
 
         // New session variable
         $_SESSION['cart'][0] = $products;
-        print_r($_SESSION['cart']);
+        // print_r($_SESSION['cart']);
     }
 }
 
@@ -59,7 +59,7 @@ if (isset($_POST['add'])) {
 </head>
 
 <body>
-
+    <?php require_once('./php/header.php'); ?>
     <div class="container">
         <div class="product row">
             <?php
