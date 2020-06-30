@@ -39,18 +39,18 @@ function displayCartItem($imageURL, $title, $information, $discountPrice)
     <form class=\"cart-items\" action=\"cart.php\" method=\"post\">
                         <div class=\"border\">
                             <div class=\"row\">
-                                <div class=\"col-md-3\">
-                                    <img src=\"./img/$imageURL\" alt=\"Image1\">
+                                <div class=\"col-md-4\">
+                                    <img style=\"width: 12rem;\" src=\"./img/$imageURL\" alt=\"Image1\">
                                 </div>
-                                <div class=\"col-md-6\">
+                                <div class=\"col-md-4\">
                                     <h6>$title</h6>
                                     <p>$information</p>
-                                    <p>$discountPrice</p>
+                                    <p>£$discountPrice</p>
                                     <button class=\"btn btn-danger\" type=\"submit\" name=\"delete\">
                                         <i class=\"fa fa-trash\"></i>
                                     </button>
                                 </div>
-                                <div class=\"col-md-3\">
+                                <div class=\"col-md-4\">
                                     <button class=\"rounded-circle\" type=\"button\">
                                         <i class=\"fas fa-minus\"></i>
                                     </button>

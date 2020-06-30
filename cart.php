@@ -36,6 +36,7 @@ $database = new Database($dbName = "mrinDB", $tableName = "products");
                     <hr>
 
                     <?php
+                    $total = 0;
                     if (isset($_SESSION['cart'])) {
                         // Get Id from session variable
                         $productId = array_column($_SESSION['cart'], "product_id");
@@ -46,17 +47,44 @@ $database = new Database($dbName = "mrinDB", $tableName = "products");
                             foreach ($productId as $id) {
                                 if ($row['id'] == $id) {
                                     displayCartItem($row['image_url'], $row['title'], $row['information'], $row['discount_price']);
+                                    $total += (int) $row['discount_price'];
                                 }
                             }
                         }
                     } else {
-                        echo "<h5>Basket is empty</h5>";
+                        echo "<h6>Basket is empty</h6>";
                     }
                     ?>
 
                 </div>
             </div>
-            <div class="col-md-5"></div>
+            <div class="col-md-5">
+                <div>
+                    <h5>Price Details</h5>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <?php
+                            if (isset($_SESSION['cart'])) {
+                                $productCount = count($_SESSION['cart']);
+                                echo "<h6>Price: $productCount items</h6>";
+                            } else {
+                                echo "<h6>Price: 0 items</h6>";
+                            }
+                            ?>
+                            <h6>Delivery: </h6>
+                            <hr>
+                            <h6>Total amount: </h6>
+                        </div>
+                        <div class="col-md-6">
+                            <h6>£<?php echo $total ?></h6>
+                            <h6 class="text-success">Free</h6>
+                            <hr>
+                            <h6>£<?php echo $total ?></h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
