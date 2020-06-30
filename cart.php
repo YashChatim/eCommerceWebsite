@@ -1,5 +1,4 @@
 <?php
-
 // Start session
 session_start();
 
@@ -8,37 +7,6 @@ require_once('./php/product.php');
 
 // Create instance of Database class
 $database = new Database($dbName = "mrinDB", $tableName = "products");
-
-// When 'Add to cart' button is clicked
-if (isset($_POST['add'])) {
-    // print_r($_POST['product_id']);
-    if (isset($_SESSION['cart'])) {
-        // Returns the values from product_id column
-        $cart = array_column($_SESSION['cart'], "product_id");
-
-        // If selected product already exists in the array
-        if (in_array($_POST['product_id'], $cart)) {
-            echo "<script>alert('Product already added')</script>";
-            echo "<script>window.location = 'index.php'</script>"; // window.location - current document URL being displayed in that window
-        } else {
-            $productCount = count($_SESSION['cart']); // count() - counts all elements in array
-            $products = array(
-                'product_id' => $_POST['product_id']
-            );
-
-            $_SESSION['cart'][$productCount] = $products;
-            // print_r($_SESSION['cart']);
-        }
-    } else {
-        $products = array(
-            'product_id' => $_POST['product_id']
-        );
-
-        // New session variable
-        $_SESSION['cart'][0] = $products;
-        // print_r($_SESSION['cart']);
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -47,26 +15,48 @@ if (isset($_POST['add'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart</title>
+    <title>Cart</title>
 
     <!-- Font-awesome CDN -->
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
     <!-- Bootstrap CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <!-- CSS file -->
-    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="./eCommerceWebsite/css/styles.css">
 </head>
 
 <body>
     <?php require_once('./php/header.php'); ?>
+
     <div class="container">
-        <div class="product row">
-            <?php
-            $product = $database->getDataFromDatabase();
-            while ($row = $product->fetch_assoc()) {
-                displayProduct($row['image_url'], $row['title'], $row['information'], $row['original_price'], $row['discount_price'], $row['id']);
-            }
-            ?>
+        <div class="row">
+            <div class="col-md-7">
+                <div class="shopping-cart">
+                    <h5>My Cart</h5>
+                    <hr>
+
+                    <?php
+                    if (isset($_SESSION['cart'])) {
+                        // Get Id from session variable
+                        $productId = array_column($_SESSION['cart'], "product_id");
+
+                        $productData = $database->getdataFromDatabase();
+                        while ($row = mysqli_fetch_assoc($productData)) {
+                            // Display all products added to the cart
+                            foreach ($productId as $id) {
+                                if ($row['id'] == $id) {
+                                    displayCartItem($row['image_url'], $row['title'], $row['information'], $row['discount_price']);
+                                }
+                            }
+                        }
+                    } else {
+                        echo "<h5>Basket is empty</h5>";
+                    }
+                    ?>
+
+                </div>
+            </div>
+            <div class="col-md-5"></div>
         </div>
     </div>
 

@@ -32,3 +32,37 @@ function displayProduct($imageURL, $title, $information, $originalPrice, $discou
 
     echo $product;
 }
+
+function displayCartItem($imageURL, $title, $information, $discountPrice)
+{
+    $cart = "
+    <form class=\"cart-items\" action=\"cart.php\" method=\"post\">
+                        <div class=\"border\">
+                            <div class=\"row\">
+                                <div class=\"col-md-3\">
+                                    <img src=\"./img/$imageURL\" alt=\"Image1\">
+                                </div>
+                                <div class=\"col-md-6\">
+                                    <h6>$title</h6>
+                                    <p>$information</p>
+                                    <p>$discountPrice</p>
+                                    <button class=\"btn btn-danger\" type=\"submit\" name=\"delete\">
+                                        <i class=\"fa fa-trash\"></i>
+                                    </button>
+                                </div>
+                                <div class=\"col-md-3\">
+                                    <button class=\"rounded-circle\" type=\"button\">
+                                        <i class=\"fas fa-minus\"></i>
+                                    </button>
+                                    <input class=\"form-control\" type=\"text\" value=\"1\">
+                                    <button class=\"rounded-circle\" type=\"button\">
+                                        <i class=\"fas fa-plus\"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+    ";
+
+    echo $cart;
+}
