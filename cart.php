@@ -7,6 +7,13 @@ require_once('./php/product.php');
 
 // Create instance of Database class
 $database = new Database($dbName = "mrinDB", $tableName = "products");
+
+// When 'Delete' button is clicked
+if (isset($_POST['delete'])) {
+    if (isset($_SESSION['cart'])) {
+        unset($_SESSION['cart']);
+    }
+}
 ?>
 
 <!DOCTYPE html>
